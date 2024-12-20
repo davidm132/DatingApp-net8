@@ -1,0 +1,146 @@
+=============================== VS Code ===================================
+
+--- Shortcuts ---
+Command Template: [ctrl] [shift] p
+Format code: [alt] [shift] f
+Get IntelliCode option: [crtl].
+Create Controller: ctor [Enter]
+
+============================ .Net in VS Code ===============================
+
+- Create new solution:
+1. Browse to folder in cmd prompt:
+2. dotnet new sln  (creates new solution file)
+3. dotnet new webapi -controllers -n API
+4. dotnet sln add API  (adds AP\API.csproj to the solution file)
+- Open .Net solution on VSCode: code .
+- Install Extensions: C# Dev Kit, C#, IntelliCode for C#, Nuget Gallery, Material Icon theme, SQLite
+- Set Auto Save: File -> Auto Save
+- Clear terminal: clear
+- Run app without hot reload (recommended): dotnet watch --no-hot-reload
+- Run app with hot reload: dotnet watch
+
+- Let VS Code Trust HTTPS:-
+dotnet dev-certs https --trust
+...or:
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
+
+- Shortcut for adding a class property: prop [enter]
+
+--- https://github.com/ ---
+- Generate token - Lesson 18:
+  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
+
+- Point app to GitHub repo:
+1.git branch -M main   (to create a branch)
+  git remote add origin https://github.com/davidm132/AppName.git
+  git push -u origin main
+2.Click Source Control icon, then "Publish Branch".
+
+- Check project's git status, in terminal: git status
+
+- Create a new git repository:
+  git init
+  dotnet new list  (optional: to view templates)
+- Create a gitignore file: dotnet new gitignore
+- Create a globaljson file: dotnet new globaljson
+- Commit code to GitHub:
+  1. Select Source control icon.
+  2. Click "+" icon next to "Changes". (Changes must be staged before committing)
+  3. Commit (with description)
+  4. Publish
+
+============================ Entity Framework ==============================
+
+--- To install entity framework ---
+https://www.nuget.org/packages/dotnet-ef
+dotnet tool install --global dotnet-ef --version 8.0.4
+- To see options: dotnet ef
+
+--- Migrations ---
+- See migration options: dotnet ef migrations -h
+- Perform first migration: dotnet ef migrations add InitialCreate -o Data/Migrations
+- If errors in build, to see details: dotnet build
+- Add migration: dotnet ef migrations add (e.g. UserTableAdded)
+- Apply migration: dotnet ef database update
+- Remove migrations: ef migrations remove
+
+--- Other commands ---
+- Drop and recreate DB:
+1. Stop server if running.
+2. dotnet ef database drop
+3. dotnet ef database update
+
+================================ Angular ===================================
+
+- Install Angular: npm install -g @angular/cli
+- Create new Angular app: ng new client
+- Fix "RemoteSigned" error:
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
+- Run Angular app:
+  cd client
+  ng serve
+
+- Create Service (also _services folder under app folder): ng g s _services/account --skip-tests
+
+- Create Components (under "Client" folder):
+1. Nav Bar: ng g c nav --skip-tests   ("nav" folder is created)
+2. Dropdown: ng g c dropdown --skip-tests   ("dropdown" folder is created)
+3. Home page: ng g c home --skip-tests   ("home" is folder name)
+4. Home page: ng g c register --skip-tests   ("register" is folder name)
+5. Create MemberList: ng g c members/member-list --skip-tests
+
+================================ Bootstrap ===================================
+
+- Get angular bootstrap:
+1. Go to https://valor-software.com/ngx-bootstrap/
+2. Get Started
+3. cd client
+4. ng add ngx-bootstrap
+ - Install Fontawesome:
+1. npm install font-awesome
+2. angular.json under "styles", add: "./node_modules/font-awesome/css/font-awesome/min.css"
+
+- Create Controls (under Client folder):
+1. Go to https://valor-software.com/ngx-bootstrap/
+2. Documentation
+3. Components
+4. For e.g. Dropdowns:
+5. Select "API" tab and copy: ng add ngx-bootstrap  --component dropdowns
+6. cd Client
+7.1 ng add ngx-bootstrap  --component dropdowns
+7.2 Or for Home page: ng add ngx-bootstrap  --component home
+
+--- HTTPS Certificate (self signed: i.e. only for development) ---
+- Install cert (see https://github.com/FiloSottile/mkcert):
+1. mkdir ssl  (in project root directory, using Terminal)
+2. Open Powershell in administrative mode and browse to ssl folder.
+3. Get command from https://chocolatey.org/install and run in PS: 
+   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) 
+4. choco install mkcert
+5. mkcert localhost
+6. In angular.json under "serve", add:
+   "options":
+   {
+     "ssl":true,
+     "sslCert": "./ssl/localhost.pem",
+     "sslKey": "./ssl/localhost-key.pem"
+   },
+
+================================ Nuget ===================================
+
+- To install package:
+1. Open command template: [ctrl] [shift] p
+2. nuget [enter]
+3. microsoft.entityframeworkcore.sqlite (e.g. to install sqlite)
+   microsoft.entityframeworkcore.design
+
+================================ SQLite ===================================
+
+- To Open DB:
+1. Open command template: [ctrl] [shift] p
+2. Enter "SQLite" and select "SQLite: Open Database"
+3. Select database in command template.
+4. "SQLite Explorer" tab now visible.
+
