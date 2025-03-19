@@ -6,19 +6,19 @@ using System.Text;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Interfaces;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-public class AccountController(DataContext context, TokenService tokenService ) : BaseApiController
+public class AccountController(DataContext context, ITokenService tokenService ) : BaseApiController
 {
     [HttpPost("register")] //account/register
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
         if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-
         using var hmac = new HMACSHA512();
         var user = new AppUser
         {
@@ -30,7 +30,7 @@ public class AccountController(DataContext context, TokenService tokenService ) 
         await context.SaveChangesAsync();
         return new UserDto
         {
-            Username= user.UserName,
+            Username = user.UserName,
             Token = tokenService.CreateToken(user)
         };
     }
