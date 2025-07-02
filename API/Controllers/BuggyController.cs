@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")] //api/users
 public class BuggyController(DataContext context) : BaseApiController
 {
     [Authorize]
@@ -25,13 +23,13 @@ public class BuggyController(DataContext context) : BaseApiController
     [HttpGet("server-error")]
     public ActionResult<AppUser> GetServerError()
     {
-        var thing = context.Users.Find(-1) ?? throw new Exception("A bad thing has hppened");
+        var thing = context.Users.Find(-1) ?? throw new Exception("Server Error");
         return thing;
     }
 
     [HttpGet("bad-request")]
     public ActionResult<string> GetBadRequest()
     {
-        return GetBadRequest("This wa not a good request");
+        return GetBadRequest("Bad Request");
     }
 }
